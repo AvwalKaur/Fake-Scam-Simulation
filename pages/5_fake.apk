@@ -1,0 +1,6 @@
+.apk is file format for android apps. 
+This is actually a dummy file
+In scams => refers to malware or virus that can hack user's mobile phone
+Scammers make such apps which upon downloading, can immediately read the person's SMS to get OTP
+
+Playwright will detect if the web page has automatically triggered downloading of this application

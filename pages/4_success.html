@@ -1,0 +1,83 @@
+<!--
+Sucess Page => THE MALWARE TRIGGER
+Gives fake confirmation such as "ACCOUNT UNBLOCKED"
+Has a trap such as "Download Security Certificate" that bribes user to download fake.apk
+
+Playwright will detect that though its confirmation page but is not similar to official confirmation pattern, alos detects that it is prompting user to doenload a fake .apk file
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>SecureBank | Success</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J+Guides:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: "Ubuntu", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            background: #f8fafc;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .success-card {
+            background: white;
+            display: inline-block;
+            padding: 60px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+            max-width: 450px;
+        }
+
+        .check-icon {
+            font-size: 80px;
+            color: #10b981;
+            margin-bottom: 25px;
+        }
+
+        .dl-box {
+            background: #f0f7ff;
+            border: 1.5px dashed #003366;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .btn-dl {
+            background: #003366;
+            color: white;
+            padding: 16px 40px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: 0 10px 15px rgba(0, 51, 102, 0.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="success-card">
+        <div class="check-icon">✔</div>
+        <h1 style="color:#003366; margin:0;">Account Verified</h1>
+        <p style="color:#64748b; margin-top:15px;">Your digital profile has been successfully updated. All NetBanking
+            services are now active.</p>
+
+        <div class="dl-box">
+            <h4 style="margin:0; color:#003366;">Secure App Installation</h4>
+            <p style="font-size:13px; color:#555; margin-top:10px;">For 24/7 protection against phishing, install our
+                official <b>SafeShield Mobile App</b>.</p>
+            <a href="/download-security-app" class="btn-dl">Download (.APK)</a>
+        </div>
+    </div>
+</body>
+
+</html>
