@@ -13,13 +13,15 @@ Playwright will takescreenshot of this web page and will detect all the above st
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Online Personal Banking | Update Profile</title>
     <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background: #fdfdfd;
+            overflow-x: hidden;
+            width: 100vw;
         }
 
         /* Header */
@@ -177,6 +179,7 @@ Playwright will takescreenshot of this web page and will detect all the above st
             margin: 15px 30px;
             padding: 15px;
             border-radius: 4px;
+            overflow-x: auto;
         }
 
         .grid-table {
