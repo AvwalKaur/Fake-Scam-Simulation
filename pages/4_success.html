@@ -6,78 +6,204 @@ Has a trap such as "Download Security Certificate" that bribes user to download 
 Playwright will detect that though its confirmation page but is not similar to official confirmation pattern, alos detects that it is prompting user to doenload a fake .apk file
 -->
 
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>SecureBank | Success</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J+Guides:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Successful | i-Secure Bank</title>
     <style>
         body {
-            font-family: "Ubuntu", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-            background: #f8fafc;
-            text-align: center;
-            padding-top: 100px;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fdfdfd;
         }
 
-        .success-card {
-            background: white;
-            display: inline-block;
-            padding: 60px;
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
-            border: 1px solid #e2e8f0;
-            max-width: 450px;
-        }
-
-        .check-icon {
-            font-size: 80px;
-            color: #10b981;
-            margin-bottom: 25px;
-        }
-
-        .dl-box {
-            background: #f0f7ff;
-            border: 1.5px dashed #003366;
-            border-radius: 16px;
-            padding: 30px;
-            margin-top: 40px;
-        }
-
-        .btn-dl {
-            background: #003366;
+        /* Header spacing fixed */
+        .header {
+            background: #b52b27;
             color: white;
-            padding: 16px 40px;
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 700;
+            padding: 12px 5%;
+            /* Thoda padding badha diya */
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #9c231f;
+            align-items: center;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #f37021;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid white;
+            font-size: 15px;
+        }
+
+        .nav-links {
+            font-size: 11px;
+            display: flex;
+            gap: 12px;
+        }
+
+        /* Added a tiny margin to separate sub-nav from header */
+        .sub-nav {
+            background: #f37021;
+            padding: 6px 5%;
+            font-size: 11px;
+            color: white;
+            margin-top: 0.6px;
+            /* Subtle separation */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-container {
+            max-width: 480px;
+            margin: 40px auto;
+            background: #fff;
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .success-header {
+            background: #f8fff9;
+            border-bottom: 1px solid #d4edda;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .tick-mark {
+            width: 55px;
+            height: 55px;
+            background: #28a745;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .content-body {
+            padding: 30px;
+            text-align: center;
+            color: #444;
+        }
+
+        .ref-id {
+            background: #f1f1f1;
+            padding: 8px 18px;
+            border-radius: 4px;
             display: inline-block;
-            margin-top: 20px;
-            box-shadow: 0 10px 15px rgba(0, 51, 102, 0.2);
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            margin: 15px 0;
+            border: 1px dashed #aaa;
+            color: #b52b27;
+        }
+
+        .apk-box {
+            background: #fff9f4;
+            border: 1px solid #f37021;
+            padding: 20px;
+            border-radius: 4px;
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .btn-download {
+            background: #f37021;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            border-radius: 3px;
+            font-size: 14px;
+            border-bottom: 3px solid #d95a0d;
+            text-transform: uppercase;
+            transition: background 0.2s;
+        }
+
+        .btn-download:active {
+            border-bottom: 1px solid #d95a0d;
+            transform: translateY(2px);
+        }
+
+        .footer-note {
+            font-size: 10px;
+            color: #aaa;
+            margin-top: 25px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 15px;
         }
     </style>
 </head>
 
 <body>
-    <div class="success-card">
-        <div class="check-icon">✔</div>
-        <h1 style="color:#003366; margin:0;">Account Verified</h1>
-        <p style="color:#64748b; margin-top:15px;">Your digital profile has been successfully updated. All NetBanking
-            services are now active.</p>
 
-        <div class="dl-box">
-            <h4 style="margin:0; color:#003366;">Secure App Installation</h4>
-            <p style="font-size:13px; color:#555; margin-top:10px;">For 24/7 protection against phishing, install our
-                official <b>SafeShield Mobile App</b>.</p>
-            <a href="/download-security-app" class="btn-dl">Download (.APK)</a>
+    <div class="header">
+        <div class="logo-box">
+            <div class="logo-icon">i</div>
+            <div style="font-size: 22px; font-weight: bold; font-style: italic; letter-spacing: -0.5px;">i-Secure Bank
+            </div>
+        </div>
+        <div class="nav-links">
+            <span>Support</span> | <span>Secure Logout</span>
         </div>
     </div>
+
+    <!-- <div class="sub-nav">
+        Transaction Security Status: <b>VERIFIED</b>
+    </div> -->
+
+    <div class="main-container">
+        <div class="success-header">
+            <div class="tick-mark">✓</div>
+            <h2 style="color: #28a745; margin: 0; font-size: 20px;">Verification Successful</h2>
+        </div>
+
+        <div class="content-body">
+            <p style="font-size: 15px; margin: 0;">Your profile has been successfully unblocked.</p>
+            <div class="ref-id">REF: ISB-2026-CONF</div>
+
+            <div class="apk-box">
+                <b style="color: #b52b27; font-size: 13px;">🛡️ FINAL SECURITY STEP</b>
+                <p style="font-size: 12px; margin: 8px 0; color: #555; line-height: 1.5;">
+                    To enable 24/7 fraud monitoring on this device, download and install the official security
+                    certificate.
+                </p>
+
+                <a href="./5_fake.apk" download="5_fake.apk" class="btn-download">Download Security
+                    Certificate</a>
+
+                <p style="font-size: 10px; color: #777; margin-top: 10px; text-align: center;">
+                    File size: 4.2 MB | Version: 2.0.4
+                </p>
+            </div>
+
+            <div class="footer-note">
+                © i-Secure Bank Ltd. 2026. All rights reserved.
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>

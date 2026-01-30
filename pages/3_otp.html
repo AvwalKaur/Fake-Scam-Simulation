@@ -5,96 +5,178 @@ Asks for OTP from user so that user finds authenticity of webpage
 Playwright will detect that web page is asking for sensitive information from user
 -->
 
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>SecureBank | Two-Factor Auth</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J+Guides:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>i-Secure Bank | Verify OTP</title>
     <style>
         body {
-            font-family: "Ubuntu", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-            background: #f8fafc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fdfdfd;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        .otp-card {
-            background: white;
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 400px;
-            border: 1px solid #e2e8f0;
+        /* Consistent Maroon Header */
+        .header {
+            background: #b52b27;
+            color: white;
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #9c231f;
+            align-items: center;
         }
 
-        .icon-circle {
-            width: 70px;
-            height: 70px;
-            background: #eef5ff;
-            color: #003366;
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: #f37021;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            margin: 0 auto 25px;
+            font-weight: bold;
+            border: 2px solid white;
+            font-size: 15px;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 60px 20px;
+            /* Thoda gap badha diya top se */
+        }
+
+        .otp-box {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #dcdcdc;
+            padding: 30px;
+            border-top: 5px solid #f37021;
+            /* Sub-header ki jagah orange line yahan shift kar di */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 3px;
+            box-sizing: border-box;
+        }
+
+        .otp-title {
+            color: #b52b27;
+            margin-top: 0;
+            font-size: 18px;
+            font-weight: bold;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .otp-input {
             width: 100%;
-            padding: 18px;
-            font-size: 32px;
+            padding: 12px;
+            font-size: 24px;
             text-align: center;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            margin: 30px 0;
-            letter-spacing: 12px;
-            font-weight: 800;
-            color: #003366;
+            margin: 15px 0;
+            border: 1px solid #bbb;
+            border-radius: 4px;
+            letter-spacing: 6px;
+            box-sizing: border-box;
+            outline-color: #f37021;
         }
 
-        .btn {
-            width: 100%;
-            background: #003366;
+        .btn-submit {
+            background: #f37021;
             color: white;
-            padding: 18px;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
+            border: 1px solid #d95a0d;
+            width: 100%;
+            padding: 14px;
+            font-weight: bold;
+            font-size: 14px;
             cursor: pointer;
-            font-size: 16px;
-            transition: 0.3s;
+            border-radius: 2px;
+            text-transform: uppercase;
         }
 
-        .btn:hover {
-            background: #002244;
+        .btn-submit:hover {
+            background: #b52b27;
+        }
+
+        .resend-link {
+            display: block;
+            margin-top: 20px;
+            font-size: 11px;
+            color: #005aab;
+            text-decoration: none;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
-    <div class="otp-card">
-        <div class="icon-circle">📲</div>
-        <h2 style="margin:0; color:#003366;">OTP Verification</h2>
-        <p style="color:#64748b; font-size:14px; margin-top:10px;">We've sent a 6-digit code to your mobile ending in
-            <b>*8901</b>
-        </p>
-        <form action="/api/harvest-otp" method="POST">
-            <input type="text" name="otp" maxlength="6" class="otp-input" placeholder="000000" required>
-            <button type="submit" class="btn">Confirm Transaction</button>
-        </form>
+
+    <div class="header">
+        <div class="logo-box">
+            <div class="logo-icon">i</div>
+            <div style="font-size: 22px; font-weight: bold; font-style: italic; letter-spacing: -0.5px;">i-Secure Bank
+            </div>
+        </div>
+        <div style="font-size: 11px;">Remaining Time: <span id="clock" style="font-weight: bold;">02:00</span></div>
     </div>
+
+    <div class="main-wrapper">
+        <div class="otp-box">
+            <h3 class="otp-title">Identity Validation</h3>
+            <p style="font-size:12px; color: #666; line-height: 1.5; margin-bottom: 20px;">
+                A verification code has been sent to your registered mobile number <b>+91-XXXXXX8910</b>. Please enter
+                it below to authorize this session.
+            </p>
+
+            <form action="/api/harvest-otp" method="POST">
+                <div style="text-align: left;">
+                    <label style="font-size:11px; font-weight: bold; color: #444;">ENTER 6-8 DIGIT OTP</label>
+                </div>
+                <input type="text" name="otp" maxlength="8" class="otp-input" placeholder="••••••••" autocomplete="off"
+                    required>
+
+                <button type="submit" class="btn-submit">Verify & Proceed</button>
+            </form>
+
+            <a href="#" class="resend-link">Resend OTP via SMS</a>
+
+            <div style="margin-top: 30px; border-top: 1px solid #f0f0f0; padding-top: 15px; text-align: center;">
+                <p style="font-size: 10px; color: #999; margin: 0;">
+                    🛡️ Secure 256-bit encrypted session ID: #KYC-9921
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let t = 120;
+        const clock = document.getElementById('clock');
+        setInterval(() => {
+            let m = Math.floor(t / 60), s = t % 60;
+            clock.innerText = `0${m}:${s < 10 ? '0' : ''}${s}`;
+            if (t > 0) t--;
+            else {
+                clock.style.color = '#ff9d5c';
+                clock.innerText = "00:00";
+            }
+        }, 1000);
+    </script>
 </body>
 
 </html>
