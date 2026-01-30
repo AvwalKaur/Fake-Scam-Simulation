@@ -1,3 +1,8 @@
+// this is scammer end server which will store the user data 
+// when the user will fill the form, it will exfiltrate (exit or leak) data secretly to the scammer side server
+// Playwright will detect ki kis raaste se user data konse IP address aur URL pe redirect ho rha hai, if the data bounces through multiple URLs (REDIRECT CHAINS) => playwright will detect that chain and analyzes what user data is being leaked.
+
+
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
