@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhantomClick - AI Anti-Phishing & Fraud Detection</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playwrite+GB+J+Guides:ital@0;1&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Slab:wght@100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #004554;
+            /* Midnight Green */
+            --primary-teal: #005c60;
+            /* Deep Sea */
+            --accent-blue: #44a6b5;
+            /* Moonstone */
+            --light-blue: #b2d5e2;
+            /* Light Blue */
+            --bg-light: #e9f1f6;
+            /* Alice Blue */
+            --neutral-soft: #d3d0c8;
+            /* Timberwolf */
+            --text-dark: #0f2f35;
+            --text-light: #ffffff;
+        }
+
+        body {
+            font-family: "Ubuntu", sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            zoom: 0.8;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background: var(--primary-dark);
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: "Ubuntu", sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent-coral), var(--accent-yellow));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--text-light);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            color: var(--text-light);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--text-light);
+        }
+
+        .btn-primary {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+            color: var(--text-light);
+        }
+
+        .btn-primary:hover {
+            background: #ff5542;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 87, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(180deg,
+                    #004554 0%,
+                    #005c60 20%,
+                    #0a7c86 40%,
+                    #44a6b5 55%,
+                    #8fc8d8 70%,
+                    #b2d5e2 82%,
+                    #e9f1f6 92%,
+                    #ffffff 100%);
+            padding: 5rem 5% 18rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+
+        /* Circular decorative lines */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate-slow 30s linear infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 1000px;
+            height: 1000px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: rotate-slow 40s linear infinite reverse;
+        }
+
+
+
+        @keyframes rotate-slow {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        /* Additional circular lines */
+        .circle-line {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            animation: pulse-circle 6s ease-in-out infinite;
+        }
+
+        .circle-line,
+        .hero::before,
+        .hero::after {
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .circle-line-1 {
+            width: 600px;
+            height: 600px;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .circle-line-2 {
+            width: 1200px;
+            height: 1200px;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 2s;
+        }
+
+        .circle-line-3 {
+            width: 400px;
+            height: 400px;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: 4s;
+        }
+
+        @keyframes pulse-circle {
+
+            0%,
+            100% {
+                opacity: 0.12;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: 0.2;
+                transform: translate(-50%, -50%) scale(1.05);
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.5;
+            }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: "Ubuntu", sans-serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--text-light);
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero-tagline {
+            font-size: 1.2rem;
+            color: var(--light-green);
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Stats Cards */
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 4rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Mobile Phone Mockup */
+        .phone-mockup {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            height: 560px;
+            background: #1a1a1a;
+            border-radius: 35px;
+            padding: 12px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+            z-index: 5;
+            animation: float-phone 4s ease-in-out infinite;
+        }
+
+        @keyframes float-phone {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0px) rotateY(-5deg);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(-20px) rotateY(5deg);
+            }
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 30px;
+            background: #1a1a1a;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .phone-content {
+            padding: 50px 20px 20px;
+        }
+
+        /* 1. Stage Container */
+        .stage-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 2. Stage Slides (4 slides with animation) */
+        .stage-slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            animation: slideshow 16s infinite;
+            /* Har slide 4 seconds ke liye visible */
+        }
+
+        .stage-slide:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        /* Stage 1 */
+        .stage-slide:nth-child(2) {
+            animation-delay: 4s;
+        }
+
+        /* Stage 2 */
+        .stage-slide:nth-child(3) {
+            animation-delay: 8s;
+        }
+
+        /* Stage 3 */
+        .stage-slide:nth-child(4) {
+            animation-delay: 12s;
+        }
+
+        /* Stage 4 */
+
+        /* 3. Slideshow Animation */
+        @keyframes slideshow {
+            0% {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+
+            /* Hidden, right side */
+            6.25% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            /* Fade in */
+            25% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+
+            /* Stay visible */
+            31.25% {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            /* Fade out */
+            100% {
+                opacity: 0;
+            }
+
+            /* Stay hidden */
+        }
+
+        /* 4. Stage Header (Blue gradient top bar) */
+        .stage-header {
+            background: linear-gradient(135deg, #005c60, #44a6b5);
+            border-radius: 12px;
+            padding: 12px;
+            color: white;
+            text-align: center;
+        }
+
+        .stage-number {
+            font-size: 10px;
+        }
+
+        /* "STAGE 1" */
+        .stage-title {
+            font-size: 14px;
+        }
+
+        /* "Scam-Brain" */
+
+        /* 5. Stage Icon (Pulsing emoji) */
+        .stage-icon {
+            font-size: 50px;
+            text-align: center;
+            margin: 15px 0;
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* 6. Stage Content (White box with details) */
+        .stage-content {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 7. Content Items (Info rows) */
+        .content-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .content-icon {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            /* Colored circles: blue, yellow, red */
+        }
+
+        .content-label {
+            font-size: 9px;
+            color: #666;
+        }
+
+        /* "SMS Detected" */
+        .content-value {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        /* "Bank Fraud Alert" */
+
+        /* 8. Risk Score Box (Big red gradient) */
+        .risk-score {
+            text-align: center;
+            padding: 5px;
+            background: linear-gradient(135deg, #ff6b57, #ff8c42);
+            color: white;
+            border-radius: 8px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* 9. Safe Badge (Green badge) */
+        .safe-badge {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        /* 10. PDF Preview */
+        .pdf-preview {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .pdf-icon {
+            font-size: 50px;
+            color: #d62828;
+        }
+
+        .pdf-text {
+            font-size: 10px;
+            color: #666;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 15px;
+            padding: 1.5rem 2rem;
+            min-width: 180px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 1s ease-out 0.6s both;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:first-child {
+            position: relative;
+            left: -120px;
+            /* Left move */
+            top: 20px;
+            /* Down move */
+        }
+
+        .stat-card:last-child {
+            position: relative;
+            right: -170px;
+            /* Right move */
+            top: 20px;
+            /* Down move */
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--primary-dark);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+        }
+
+        .stat-unit {
+            font-size: 1.5rem;
+            color: var(--accent-yellow);
+        }
+
+        /* Shield Graphic */
+        .shield-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            position: relative;
+        }
+
+        .shield-box {
+            background: var(--light-green);
+            width: 200px;
+            height: 150px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .shield-icon {
+            font-size: 4rem;
+            opacity: 0.7;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 5%;
+            background: linear-gradient(180deg,
+                    #ffffff 0%,
+                    #e9f1f6 40%,
+                    #d6e8f0 60%,
+                    #ffffff 100%);
+            font-family: "Ubuntu", sans-serif;
+        }
+
+        .section-title {
+            font-family: "Ubuntu", sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 4rem;
+            color: var(--primary-dark);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 69, 84, 0.15);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 18px 55px rgba(0, 69, 84, 0.25);
+            border-color: var(--accent-blue);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .icon-stage-1 {
+            background: linear-gradient(135deg, #1e6fa1, #3a8fc4);
+        }
+
+        .icon-stage-2 {
+            background: linear-gradient(135deg, #ff8c42, #ffb347);
+        }
+
+        .icon-stage-3 {
+            background: linear-gradient(135deg, #6a5acd, #9b7cff);
+        }
+
+        .icon-stage-4 {
+            background: linear-gradient(135deg, #d62828, #ff6b57);
+        }
+
+
+        .feature-card h3 {
+            font-family: "Ubuntu", sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .feature-card p {
+            color: #4a6b73;
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        /*footer starts*/
+        footer {
+            background: var(--primary-dark);
+            color: var(--text-light);
+            padding: 3rem 5% 1.5rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-blue);
+        }
+
+        .footer-section p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .social-icon:hover {
+            background: var(--accent-blue);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.85rem;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .footer-logo-icon {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(135deg, #ff6b57, #ffb347);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+        }
+
+        /*footer ends*/
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                zoom: 0.8;
+                overflow-x: hidden;
+                width: 100%;
+            }
+
+            .hero {
+                padding: 4rem 5% 5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                min-height: auto;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+                line-height: 1.1;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 2rem;
+            }
+
+            /* Navigation */
+            .nav-links,
+            .nav-buttons {
+                display: none;
+            }
+
+            /* Stats Container Fix */
+            .stats-container {
+                flex-direction: column;
+                gap: 1.5rem;
+                margin-top: 2rem;
+                width: 100%;
+            }
+
+            .stat-card {
+                position: static !important;
+                width: 90%;
+                margin: 0 auto;
+                transform: none !important;
+                background: rgba(255, 255, 255, 0.1);
+                /* Glass effect */
+                backdrop-filter: blur(10px);
+            }
+
+            .phone-mockup {
+                position: relative;
+                top: 2rem !important;
+                left: auto !important;
+                transform: none !important;
+                margin: 0 auto;
+                width: 240px;
+                height: 480px;
+                z-index: 5;
+                animation: float-simple 4s ease-in-out infinite;
+            }
+
+            .floating-card {
+                position: absolute;
+                width: auto;
+                min-width: 120px;
+                font-size: 10px;
+                padding: 10px;
+                z-index: 10;
+            }
+
+            .floating-card-1 {
+                top: 10%;
+                left: -20px;
+                /* Peek from left */
+            }
+
+            .floating-card-2 {
+                bottom: 15%;
+                right: -20px;
+            }
+
+            .floating-card-3 {
+                display: none;
+            }
+
+            /* Features Grid */
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .feature-card {
+                padding: 1.5rem;
+            }
+
+            @keyframes float-simple {
+
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+
+                50% {
+                    transform: translateY(-15px);
+                }
+            }
+        }
+
+        /* Decorative Elements */
+        .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .circle-1 {
+            width: 100px;
+            height: 100px;
+            background: var(--accent-coral);
+            top: 20%;
+            left: 10%;
+        }
+
+        .circle-2 {
+            width: 150px;
+            height: 150px;
+            background: var(--accent-yellow);
+            bottom: 10%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        /* Floating Info Cards */
+        .floating-card {
+            position: absolute;
+            background: white;
+            padding: 12px 18px;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: 0 12px 40px rgba(0, 69, 84, 0.25);
+            z-index: 10;
+            animation: float 3s ease-in-out infinite;
+            font-size: 13px;
+        }
+
+        .floating-card-1 {
+            top: 65%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .floating-card-2 {
+            top: 70%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .floating-card-3 {
+            top: 85%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .card-label {
+            font-size: 14px;
+            margin-bottom: 4px;
+            font-weight: bold;
+        }
+
+        .card-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-teal);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <div class="footer-logo-icon">⚡</div>
+            PhantomClick
+        </div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#solutions">Features</a></li>
+            <li><a href="#team">Solutions</a></li>
+            <li><a href="#team">Team</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-buttons">
+            <a href="#" class="btn btn-primary">Report Scam</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <!-- Decorative circular lines -->
+        <div class="circle-line circle-line-1"></div>
+        <div class="circle-line circle-line-2"></div>
+        <div class="circle-line circle-line-3"></div>
+
+        <div class="hero-content">
+            <h1>Stop Scams Before They Strike</h1>
+            <p class="hero-subtitle">See the Scam Unfold - Without Ever Falling for It.</p>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-label">URL Risk Analysis</div>
+                    <div class="stat-value">0-100 Score</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-label">Safe Scam Replay</div>
+                    <div class="stat-value">Sandboxed View</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Phone Mockup -->
+        <div class="phone-mockup">
+            <div class="phone-screen">
+                <div class="phone-content">
+                    <div class="stage-container">
+
+                        <!-- Stage 1: Scam-Brain (SMS Analysis) -->
+                        <div class="stage-slide">
+                            <div class="stage-header">
+                                <div class="stage-number">STAGE 1</div>
+                                <div class="stage-title">Scam-Brain</div>
+                            </div>
+                            <div class="stage-icon">💬</div>
+                            <div class="stage-content">
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #E3F2FD;">📱</div>
+                                    <div class="content-text">
+                                        <div class="content-label">SMS Detected</div>
+                                        <div class="content-value">Bank Fraud Alert</div>
+                                    </div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #FFF3E0;">🔗</div>
+                                    <div class="content-text">
+                                        <div class="content-label">URL Found</div>
+                                        <div class="content-value">hdfc-verify.xyz</div>
+                                    </div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #FFEBEE;">⚠️</div>
+                                    <div class="content-text">
+                                        <div class="content-label">Urgency Level</div>
+                                        <div class="content-value">HIGH - Act Now!</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 2: URL Scorecard (Risk Analysis) -->
+                        <div class="stage-slide">
+                            <div class="stage-header">
+                                <div class="stage-number">STAGE 2</div>
+                                <div class="stage-title">URL Scorecard</div>
+                            </div>
+                            <div class="stage-icon">🔍</div>
+                            <div class="stage-content">
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #E8F5E9;">✓</div>
+                                    <div class="content-text">
+                                        <div class="content-label">Domain Age</div>
+                                        <div class="content-value">2 days old</div>
+                                    </div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #FFF9C4;">⚡</div>
+                                    <div class="content-text">
+                                        <div class="content-label">SSL Status</div>
+                                        <div class="content-value">Self-signed</div>
+                                    </div>
+                                </div>
+                                <div class="risk-score">
+                                    85% RISK
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 3: Ghost-View (Safe Replay) -->
+                        <div class="stage-slide">
+                            <div class="stage-header">
+                                <div class="stage-number">STAGE 3</div>
+                                <div class="stage-title">Ghost-View</div>
+                            </div>
+                            <div class="stage-icon">👁️</div>
+                            <div class="stage-content">
+                                <div class="safe-badge">🔒 Sandboxed Environment</div>
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #FFEBEE;">🔴</div>
+                                    <div class="content-text">
+                                        <div class="content-label">Flagged Field</div>
+                                        <div class="content-value">CVV Input Detected</div>
+                                    </div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #FFEBEE;">🔴</div>
+                                    <div class="content-text">
+                                        <div class="content-label">Dangerous</div>
+                                        <div class="content-value">OTP Request Found</div>
+                                    </div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #E3F2FD;">📹</div>
+                                    <div class="content-text">
+                                        <div class="content-label">Screen Replay</div>
+                                        <div class="content-value">Recording Scam Flow</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 4: Digital Witness (Forensic Report) -->
+                        <div class="stage-slide">
+                            <div class="stage-header">
+                                <div class="stage-number">STAGE 4</div>
+                                <div class="stage-title">Digital Witness</div>
+                            </div>
+                            <div class="stage-icon">📄</div>
+                            <div class="stage-content">
+                                <div class="pdf-preview">
+                                    <div class="pdf-icon">📋</div>
+                                    <div class="pdf-text">
+                                        <strong>Forensic Report Generated</strong><br>
+                                        Screenshots • Risk Score • AI Summary
+                                    </div>
+                                </div>
+                                <div class="content-item">
+                                    <div class="content-icon" style="background: #E8F5E9;">✓</div>
+                                    <div class="content-text">
+                                        <div class="content-label">Ready to Submit</div>
+                                        <div class="content-value">cybercrime.gov.in</div>
+                                    </div>
+                                </div>
+                                <div class="safe-badge" style="background: linear-gradient(135deg, #d62828, #ff6b57);">
+                                    📥 Download PDF Evidence
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Info Cards -->
+        <div class="floating-card floating-card-1">
+            <div class="card-label">Scam Detection</div>
+            <div class="card-value">AI-Powered</div>
+        </div>
+
+        <div class="floating-card floating-card-2">
+            <div class="card-label">Forensic Report</div>
+            <div class="card-value card-highlight">PDF Evidence</div>
+        </div>
+
+    </section>
+    <!-- Features Section -->
+    <section class="features" id="solutions">
+        <h2 class="section-title">How PhantomClick Works ?</h2>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon icon-stage-1"><i class="fa-solid fa-message"></i>
+                </div>
+                <h3>Stage 1 : Scam-Brain (SMS Analysis)</h3>
+                <p>Upload the suspicious SMS screenshot. PhantomClick extracts text, detects URLs or phone numbers,
+                    identifies the scam
+                    category, and flags psychological urgency using AI-powered analysis.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon icon-stage-2"><i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3>Stage 2 : URL Scorecard (Risk Analysis)</h3>
+                <p>The detected link is analyzed without opening it. PhantomClick checks domain age, look-alike
+                    patterns, SSL validity, and
+                    URL structure to generate a clear risk score (0–100).</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon icon-stage-3"><i class="fa-solid fa-eye"></i>
+                </div>
+                <h3>Stage 3 : Ghost-View (Safe Replay)</h3>
+                <p>High-risk links are opened inside a secure sandbox. PhantomClick visually highlights dangerous fields
+                    and generates a
+                    step-by-step replay showing how the scam would unfold.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon icon-stage-4"><i class="fa-solid fa-file-pdf"></i>
+                </div>
+                <h3>Stage 4 : Digital Witness (Forensic Report)</h3>
+                <p>All findings are compiled into a professional forensic PDF with screenshots, risk scores, and an
+                    AI-written
+                    summary—ready to be submitted as evidence on cybercrime.gov.in.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <!-- About Section -->
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">⚡</div>
+                    PhantomClick
+                </div>
+
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fa-brands fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#solutions">4-Stage Pipeline</a></li>
+                    <li><a href="#">Github Repository</a></li>
+                    <li><a href="#">API Documentations</a></li>
+                    <li><a href="#">Demo Video</a></li>
+                </ul>
+            </div>
+
+            <!-- Resources -->
+            <div class="footer-section">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Technical Documentation</a></li>
+                    <li><a href="#">Setup Guide</a></li>
+                    <li><a href="https://cybercrime.gov.in" target="_blank">Cybercrime Portal</a></li>
+                    <li><a href="#">Report a Scam</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div class="footer-section">
+                <h3>Get in Touch</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:support@phantomclick.com"><i class="fa-solid fa-envelope"></i>
+                            support@phantomclick.com</a></li>
+                    <li><a href="tel:+911234567890"><i class="fa-solid fa-phone"></i> +91 123 456 7890</a></li>
+                    <li><a href="#"><i class="fa-solid fa-location-dot"></i> Delhi, India</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p style="font-size: 1rem; color: #fff;">Designed and Developed by Team Scriptix ❤️</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate stats on scroll
+        const observerOptions = {
+            threshold: 0.5,
+            rootMargin: '0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.stat-card, .feature-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Parallax effect for decorative circles
+        document.addEventListener('mousemove', (e) => {
+            const circles = document.querySelectorAll('.decorative-circle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            circles.forEach((circle, index) => {
+                const speed = (index + 1) * 20;
+                circle.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+    </script>
+</body>
+
+</html>
